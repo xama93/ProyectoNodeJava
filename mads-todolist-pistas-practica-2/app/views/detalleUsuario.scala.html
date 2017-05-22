@@ -1,0 +1,19 @@
+@(usuario: Usuario)
+@main("Detalle usuario", null) {
+    <h1>Detalle usuario @usuario.id</h1>
+    <ul>
+        <li><strong>Identificador</strong>: @usuario.id</li>
+        <li><strong>Login</strong>: @usuario.login</li>
+        <li><strong>Nombre</strong>: @usuario.nombre</li>
+        <li><strong>Apellidos</strong>: @usuario.apellidos</li>
+        <li><strong>Correo</strong>: @usuario.eMail</li>
+        <li><strong>Fecha de nacimiento</strong>:
+            @if(usuario.fechaNacimiento != null) {
+                @usuario.fechaNacimiento.format("dd-MM-yyyy")
+            }
+        </li>
+
+    </ul>
+    <p><a class="btn btn-primary" href="@routes.UsuariosController.formularioEditaUsuario(usuario.id)">Editar</a>
+       <a class="btn btn-link" href="@routes.UsuariosController.listaUsuarios()">Volver</a></p>
+}

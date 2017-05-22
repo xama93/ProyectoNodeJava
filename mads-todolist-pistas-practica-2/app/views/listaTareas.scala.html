@@ -1,0 +1,31 @@
+@(tareas: List[Tarea], usuario: Usuario, mensaje: String, error: String)
+@main("Tareas del usuario @usuario.id", null) {
+
+    <h2> Listado de tareas de @usuario.nombre</h2>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Descripción</th>
+            <th>Acción</th>
+        </tr>
+    @for(tarea <- tareas) {
+        <tr>
+            <td>@tarea.id</td>
+            <td>@tarea.descripcion</td>
+            <td></td>
+        </tr>
+      }
+  </table>
+
+    @if(mensaje != null) {
+        <div class="alert alert-success">
+            @mensaje
+        </div>
+    }
+    @if(error != null) {
+        <div class="alert alert-danger">
+            @error
+        </div>
+    }
+}

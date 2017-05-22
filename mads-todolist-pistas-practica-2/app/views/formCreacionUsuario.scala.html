@@ -1,0 +1,22 @@
+@(usuarioForm: Form[Usuario], mensaje: String)
+@main("Nuevo usuario") {
+    @if(mensaje != "") {
+        <div class="alert alert-danger">
+            @mensaje
+        </div>
+    }
+    <h1>Crear usuario</h1>
+    @helper.form(action = routes.UsuariosController.grabaNuevoUsuario()) {
+        <fieldset>
+            <legend>Usuario nuevo</legend>
+            @helper.inputText(usuarioForm("login"), '_label -> "Login")
+            @helper.inputText(usuarioForm("nombre"), '_label -> "Nombre")
+            @helper.inputText(usuarioForm("apellidos"), '_label -> "Apellidos")
+            @helper.inputText(usuarioForm("eMail"), '_label -> "Correo electrónico")
+            @helper.inputText(usuarioForm("fechaNacimiento"), '_label -> "Fecha nacimiento (dd-mm-aaaa)")
+        </fieldset>
+        <p>
+        <input type="submit" class="btn btn-primary" value="Guardar">
+        <a class="btn btn-warning" href="@routes.UsuariosController.listaUsuarios()">Cancelar</a></p>
+    }
+}

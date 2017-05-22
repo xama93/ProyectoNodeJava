@@ -1,0 +1,66 @@
+@(usuarios: List[Usuario], mensaje: String, error: String)
+@scripts = {
+    <script type="text/javascript">
+        function del(urlBorrar) {
+            $.ajax({
+                url: urlBorrar,
+                type: 'DELETE',
+                success: function(results) {
+                    //refresh the page
+                    location.reload();
+                }
+            });
+        }
+    </script>
+}
+@main("Listado de usuarios", scripts) {
+
+    <h2> Listado de usuarios </h2>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Id</th>
+            <th>Login</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Acción</th>
+        </tr>
+    @for(usuario <- usuarios) {
+        <tr>
+            <td>@usuario.id</td>
+            <td>@usuario.login</td>
+            <td>@usuario.nombre</td>
+            <td>@usuario.apellidos</td>
+            <td><a href="@routes.UsuariosController.detalleUsuario(usuario.id)">
+                <span class="glyphicon glyphicon-eye-open"></span></a> &nbsp;
+                <a href="@routes.UsuariosController.formularioEditaUsuario(usuario.id)">
+                    <span class="glyphicon glyphicon-pencil"></span></a> &nbsp;
+                <a onmouseover="" style="cursor: pointer;"
+                onclick="del('@routes.UsuariosController.borraUsuario(usuario.id)')">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td>
+        </tr>
+      }
+
+      <tr>
+          <td><a href="@routes.UsuariosController.formularioNuevoUsuario()">
+              <span class="glyphicon glyphicon-plus"/></a></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+
+  </table>
+
+    @if(mensaje != null) {
+        <div class="alert alert-success">
+            @mensaje
+        </div>
+    }
+    @if(error != null) {
+        <div class="alert alert-danger">
+            @error
+        </div>
+    }
+}
